@@ -1,0 +1,41 @@
+<?php
+
+namespace App\Rules\CRR;
+
+use App\CRRSuggestion;
+use Illuminate\Contracts\Validation\Rule;
+
+class SuggestionNotExists implements Rule {
+    /**
+     * Create a new rule instance.
+     *
+     * @return void
+     */
+    public function __construct() {
+        //
+    }
+
+    /**
+     * Determine if the validation rule passes.
+     *
+     * @param  string  $attribute
+     * @param  mixed  $value
+     * @return bool
+     */
+    public function passes($attribute, $value) {
+        $suggestion = CRRSuggestion::find($value);
+        if(isset($suggestion) === false || $suggestion->isactive == "NO") {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Get the validation error message.
+     *
+     * @return string
+     */
+    public function message() {
+        return 'ასეთი suggestion არ არსებობს!';
+    }
+}

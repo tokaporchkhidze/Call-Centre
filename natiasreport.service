@@ -1,0 +1,29 @@
+[Unit]
+Description=Generating Excel Report files
+#Requires=mysqld.service memcached.service
+#After=mysqld.service memcached.service
+After=network.target
+
+[Service]
+User=root
+Type=simple
+TimeoutSec=0
+PIDFile=/var/run/natiasreport.pid
+ExecStart=/bin/bash /var/www/callCentre/natiasreport.sh
+# It's the default you can change whats happens on stop command
+#KillMode=mixed
+ExecStop=/var/www/callCentre/natiasreportstop.sh
+#ExecStopPost=/var/www/callCentre/natiasreportstop.sh
+#ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+
+Restart=on-failure
+RestartSec=60s
+
+#If you don't want to make tons of logs you can set it null if you sent a
+# file or some other options it will send all php output to this one.
+#StandardOutput=/var/log/natiasreport.log
+#StandardError=/var/log/natiasreport.log
+
+[Install]
+WantedBy=default.target
