@@ -21,7 +21,7 @@ error_reporting(E_ALL | E_NOTICE);
 $beforeExitFunc = function() {
     $mail = new MailHandler();
     $body = sprintf("Asterisk Sip status listener died, located at %s/%s", $_SERVER['PWD'], str_replace("./", "",$_SERVER['PHP_SELF']));
-    $mail->configureSMTP()->addRecipients(["tporchkhidze@silknet.com", "ivporchkhidze@silknet.com", "voip@silknet.com"])->addContent("Asterisk Script Died", $body)->sendMail();
+    $mail->configureSMTP()->addRecipients([])->addContent("Asterisk Script Died", $body)->sendMail();
     print("Shutdown Function executed\n");
 };
 
